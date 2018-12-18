@@ -3,7 +3,7 @@ A C# class that can sign and validate JWT tokens, wrapped in a simple library wi
 
 To generate a compatible private key
 ```
-openssl genrsa -out private.key 4096 -sha256
+openssl genrsa -out private.key 4096
 ```
 
 To generate a compatible public key
@@ -15,7 +15,7 @@ openssl rsa -in private.key -outform PEM -pubout -out public.pem
 ```cs
 using Newtonsoft.Json;
 
-SimpleJwt.Jwt jwt = new SimpleJwt.Jwt
+JwtManager.RsJwt jwt = new JwtManager.RsJwt
 {
     PrivateKey = PrivateKey
 };
@@ -29,7 +29,7 @@ In case of an error, an Exception will be thrown.
 ```cs
 using Newtonsoft.Json;
 
-SimpleJwt.Jwt jwt = new SimpleJwt.Jwt
+JwtManager.RsJwt jwt = new JwtManager.RsJwt
 {
     PublicKey = PublicKey
 };
