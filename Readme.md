@@ -1,4 +1,4 @@
-#JWT RS256 C# library
+# JWT RS256 C# library
 
 A C# class that can sign and validate JWT tokens, wrapped in a simple library with a couple of helper functions.
 
