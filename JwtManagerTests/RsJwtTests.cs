@@ -14,6 +14,7 @@ namespace JwtManagerTests
         private static string PrivateKey = string.Empty;
         private static string PublicKey = string.Empty;
         private static string KeySize = string.Empty;
+        private static string OpenSslBinPath = string.Empty;
         private static string CurrentPath = string.Empty;
         #endregion
 
@@ -22,10 +23,11 @@ namespace JwtManagerTests
         public static void ClassInit(TestContext context)
         {
             KeySize = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location).AppSettings.Settings["KeySize"].Value;
+            OpenSslBinPath = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location).AppSettings.Settings["OpenSslBinPath"].Value;
 
             CurrentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string commands = string.Format(@"C:\OpenSSL-Win32\bin\openssl genrsa -out private{0}.key {0}
-C:\OpenSSL-Win32\bin\openssl rsa -in private{0}.key -outform PEM -pubout -out public{0}.pem", KeySize);
+            string commands = string.Format(@"{0}openssl genrsa -out private{1}.key {1}
+{0}openssl rsa -in private{1}.key -outform PEM -pubout -out public{1}.pem", OpenSslBinPath, KeySize);
 
             File.WriteAllText(string.Format("{0}\\create.bat", CurrentPath), commands);
 
