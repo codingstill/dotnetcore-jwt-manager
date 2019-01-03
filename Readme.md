@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 
 JwtManager.RsJwt jwt = new JwtManager.RsJwt
 {
+    KeySize = 256, // This can be also 384 or 512
     PrivateKey = PrivateKey
 };
 
@@ -32,6 +33,7 @@ using Newtonsoft.Json;
 
 JwtManager.RsJwt jwt = new JwtManager.RsJwt
 {
+    KeySize = 256, // This can be also 384 or 512
     PublicKey = PublicKey
 };
 

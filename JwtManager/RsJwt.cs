@@ -15,11 +15,12 @@ namespace JwtManager
     {
         public string PrivateKey { get; set; }
         public string PublicKey { get; set; }
+        public int KeySize { get; set; }
 
         public override string Sign(string payload)
         {
             List<string> segments = new List<string>();
-            var header = new JwtHeader { alg = "RS256", typ = "JWT" };
+            JwtHeader header = Header;
 
             DateTime issued = DateTime.Now;
             DateTime expire = DateTime.Now.AddHours(10);
@@ -39,7 +40,7 @@ namespace JwtManager
             var privKeyObj = Asn1Object.FromByteArray(keyBytes);
             var privStruct = RsaPrivateKeyStructure.GetInstance((Asn1Sequence)privKeyObj);
 
-            ISigner sig = SignerUtilities.GetSigner("SHA256withRSA");
+            ISigner sig = SignerUtilities.GetSigner(SignerName);
 
             sig.Init(true, new RsaKeyParameters(true, privStruct.Modulus, privStruct.PrivateExponent));
 
@@ -74,11 +75,10 @@ namespace JwtManager
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
             rsa.ImportParameters(rsaParameters);
 
-            SHA256 sha256 = SHA256.Create();
-            byte[] hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(header + '.' + payload));
+            byte[] hash = ComputeHash(header, payload);
 
             RSAPKCS1SignatureDeformatter rsaDeformatter = new RSAPKCS1SignatureDeformatter(rsa);
-            rsaDeformatter.SetHashAlgorithm("SHA256");
+            rsaDeformatter.SetHashAlgorithm(AlgorithmName);
             byte[] tmp = Helpers.Base64Helper.UrlDecode(signature);
             if (!rsaDeformatter.VerifySignature(hash, tmp))
             {
@@ -86,6 +86,39 @@ namespace JwtManager
             }
 
             return payloadJson;
+        }
+
+        private JwtHeader Header
+        {
+            get
+            {
+                return new JwtHeader { alg = "RS" + KeySize.ToString(), typ = "JWT" };
+            }
+        }
+
+        private string SignerName
+        {
+            get
+            {
+                return "SHA" + KeySize.ToString() + "withRSA";
+            }
+        }
+
+        private string AlgorithmName
+        {
+            get
+            {
+                return "SHA" + KeySize.ToString();
+            }
+        }
+
+        private byte[] ComputeHash(string header, string payload)
+        {
+            HashAlgorithm sha = HashAlgorithm.Create(AlgorithmName);
+
+            if (sha == null) throw new Exception("Given key size is not valid.");
+
+            return sha.ComputeHash(Encoding.UTF8.GetBytes(header + '.' + payload));
         }
     }
 }
