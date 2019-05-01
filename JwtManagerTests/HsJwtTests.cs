@@ -18,8 +18,6 @@ namespace JwtManagerTests
         [ClassInitialize]
         public static void BaseClassInitialize(TestContext context)
         {
-            AppSettingsSection AppSettings = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location).AppSettings;
-
             Secret = "secret";
         }
 
@@ -30,9 +28,7 @@ namespace JwtManagerTests
         public void BaseTestCleanup() { }
 
         [ClassCleanup]
-        public static void BaseClassCleanup()
-        {
-        }
+        public static void BaseClassCleanup() { }
         #endregion
 
         [TestMethod]
@@ -68,7 +64,7 @@ namespace JwtManagerTests
                 Secret = Secret
             };
 
-            string signedData = signJwt.Sign(data); //"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhIjoxLCJiIjoyfQ.oUNhDI_ELestyvPnldXA0UR_FycJW8TXLQqJmr9mSY0";
+            string signedData = signJwt.Sign(data);
 
             JwtManager.HsJwt jwt = new JwtManager.HsJwt
             {
@@ -77,7 +73,7 @@ namespace JwtManagerTests
             };
             string validatedData = jwt.Validate(signedData);
 
-            Assert.AreEqual(data, validatedData, "Object should not be null");
+            Assert.AreEqual(data, validatedData, "Signed data should match original data");
         }
 
         [TestMethod]
