@@ -109,7 +109,7 @@ namespace JwtManagerTests
             };
             string validatedData = jwt.Validate(signedData);
 
-            Assert.AreEqual(data, validatedData, "Object should not be null");
+            Assert.AreEqual(data, validatedData, "Signed data should match the original data");
         }
 
         [TestMethod]
