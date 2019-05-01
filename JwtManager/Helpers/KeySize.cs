@@ -4,11 +4,10 @@ using System.Text;
 
 namespace JwtManager.Helpers
 {
-    public enum Algorithm
+    public enum KeySize
     {
-        HMAC = 1,
-        RSA = 2,
-        ECDSA = 3,
-        RSASSA = 4
+        S256 = 256,
+        S384 = 384,
+        S512 = 512
     }
 }
