@@ -110,7 +110,7 @@ namespace JwtManager
         {
             get
             {
-                return "SHA" + KeySize.ToString();
+                return "SHA" + (int)KeySize;
             }
         }
 
