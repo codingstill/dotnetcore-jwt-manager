@@ -38,7 +38,7 @@ JwtManager.RsJwt jwt = new JwtManager.RsJwt
 };
 
 string payload = jwt.Validate(strToken);
-var myToken JsonConvert.DesrializeObject<JwtToken>(payload);
+var myToken = JsonConvert.DeserializeObject<JwtToken>(payload);
 ```
 
 In case of an error, an Exception will be thrown.
