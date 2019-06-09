@@ -109,7 +109,7 @@ namespace JwtManagerTests
             };
             string validatedData = jwt.Validate(signedData);
 
-            Assert.AreEqual(data, validatedData, "Object should not be null");
+            Assert.AreEqual(data, validatedData, "Signed data should match the original data");
         }
 
         [TestMethod]
@@ -244,7 +244,7 @@ namespace JwtManagerTests
             Exception e = null;
             JwtManager.RsJwt jwt = new JwtManager.RsJwt
             {
-                KeySize = 555,
+                KeySize = (JwtManager.Helpers.KeySize)555,
                 PrivateKey = PrivateKey
             };
 
@@ -258,9 +258,8 @@ namespace JwtManagerTests
                 e = ex;
             }
 
-
             Assert.IsNotNull(e, "An exception should be thrown");
-            Assert.AreEqual(e.Message, "Signer SHA555WITHRSA not recognised.");
+            Assert.AreEqual(e.Message, "Invalid values for algorithm or size.");
         }
 
         [TestMethod]
@@ -274,7 +273,7 @@ namespace JwtManagerTests
             };
             JwtManager.RsJwt vJwt = new JwtManager.RsJwt
             {
-                KeySize = 555,
+                KeySize = (JwtManager.Helpers.KeySize)555,
                 PublicKey = PublicKey
             };
 
@@ -294,7 +293,7 @@ namespace JwtManagerTests
             Assert.AreEqual(e.Message, "Given key size is not valid.");
         }
 
-        protected abstract int HashKeySize();
+        protected abstract JwtManager.Helpers.KeySize HashKeySize();
     }
 
     [TestClass]
@@ -326,9 +325,9 @@ namespace JwtManagerTests
         }
         #endregion
 
-        protected override int HashKeySize()
+        protected override JwtManager.Helpers.KeySize HashKeySize()
         {
-            return 256;
+            return JwtManager.Helpers.KeySize.S256;
         }
     }
 
@@ -361,9 +360,9 @@ namespace JwtManagerTests
         }
         #endregion
 
-        protected override int HashKeySize()
+        protected override JwtManager.Helpers.KeySize HashKeySize()
         {
-            return 384;
+            return JwtManager.Helpers.KeySize.S384;
         }
     }
 
@@ -396,9 +395,9 @@ namespace JwtManagerTests
         }
         #endregion
 
-        protected override int HashKeySize()
+        protected override JwtManager.Helpers.KeySize HashKeySize()
         {
-            return 512;
+            return JwtManager.Helpers.KeySize.S512;
         }
     }
 }

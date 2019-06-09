@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 
 JwtManager.RsJwt jwt = new JwtManager.RsJwt
 {
-    KeySize = 256, // This can be also 384 or 512
+    KeySize = JwtManager.Helpers.KeySize.S256, // This can be also 384 or 512
     PrivateKey = PrivateKey
 };
 
@@ -33,12 +33,12 @@ using Newtonsoft.Json;
 
 JwtManager.RsJwt jwt = new JwtManager.RsJwt
 {
-    KeySize = 256, // This can be also 384 or 512
+    KeySize = JwtManager.Helpers.KeySize.S256, // This can be also 384 or 512
     PublicKey = PublicKey
 };
 
 string payload = jwt.Validate(strToken);
-var myToken JsonConvert.DesrializeObject<JwtToken>(payload);
+var myToken = JsonConvert.DeserializeObject<JwtToken>(payload);
 ```
 
 In case of an error, an Exception will be thrown.

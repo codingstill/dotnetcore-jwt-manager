@@ -6,9 +6,6 @@ namespace JwtManager
 {
     public abstract class Jwt
     {
-        public string Algorithm { get; set; }
-        public string Digest { get; set; }
-
         /// <summary>
         /// Creates and signs a Jwt token for the given payload with the given private key
         /// </summary>
@@ -22,10 +19,5 @@ namespace JwtManager
         /// <param name="token">A token to validate</param>
         /// <returns>The serialized payload if the token can be validated</returns>
         public abstract string Validate(string token);
-
-        public static Jwt Create(string algorithm, int digest)
-        {
-            return new RsJwt();
-        }
     }
 }

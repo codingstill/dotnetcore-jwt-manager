@@ -15,7 +15,7 @@ namespace JwtManager
     {
         public string PrivateKey { get; set; }
         public string PublicKey { get; set; }
-        public int KeySize { get; set; }
+        public Helpers.KeySize KeySize { get; set; }
 
         public override string Sign(string payload)
         {
@@ -92,7 +92,9 @@ namespace JwtManager
         {
             get
             {
-                return new JwtHeader { alg = "RS" + KeySize.ToString(), typ = "JWT" };
+                JwtHeader header = new JwtHeader();
+                header.Set(Helpers.Algorithm.RSA, KeySize);
+                return header;
             }
         }
 
@@ -100,7 +102,7 @@ namespace JwtManager
         {
             get
             {
-                return "SHA" + KeySize.ToString() + "withRSA";
+                return "SHA" + (int)KeySize + "withRSA";
             }
         }
 
@@ -108,7 +110,7 @@ namespace JwtManager
         {
             get
             {
-                return "SHA" + KeySize.ToString();
+                return "SHA" + (int)KeySize;
             }
         }
 
