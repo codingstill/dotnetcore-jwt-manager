@@ -258,9 +258,8 @@ namespace JwtManagerTests
                 e = ex;
             }
 
-
             Assert.IsNotNull(e, "An exception should be thrown");
-            Assert.AreEqual(e.Message, "Signer SHA555WITHRSA not recognised.");
+            Assert.AreEqual(e.Message, "Invalid values for algorithm or size.");
         }
 
         [TestMethod]

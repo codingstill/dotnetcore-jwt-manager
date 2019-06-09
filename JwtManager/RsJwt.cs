@@ -94,7 +94,7 @@ namespace JwtManager
             {
                 JwtHeader header = new JwtHeader();
                 header.Set(Helpers.Algorithm.RSA, KeySize);
-                return Header;
+                return header;
             }
         }
 
@@ -102,7 +102,7 @@ namespace JwtManager
         {
             get
             {
-                return "SHA" + KeySize.ToString() + "withRSA";
+                return "SHA" + (int)KeySize + "withRSA";
             }
         }
 
