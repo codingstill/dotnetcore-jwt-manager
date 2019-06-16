@@ -48,7 +48,7 @@ namespace JwtManagerTests
                 Secret = Secret
             };
 
-            string data = "{a:1,b:2}";
+            string data = "{\"a\":1,\"b\":2}";
             string signedData = jwt.Sign(data);
 
             Assert.IsTrue(signedData != null, "Object should not be null");
@@ -57,7 +57,7 @@ namespace JwtManagerTests
         [TestMethod]
         public void ValidateData()
         {
-            string data = "{a:1,b:2}";
+            string data = "{\"a\":1,\"b\":2}";
             JwtManager.HsJwt signJwt = new JwtManager.HsJwt
             {
                 KeySize = HashKeySize(),
@@ -88,7 +88,7 @@ namespace JwtManagerTests
 
             try
             {
-                string data = "{a:1,b:2}";
+                string data = "{\"a\":1,\"b\":2}";
                 string signedData = jwt.Sign(data);
                 string validatedData = jwt.Validate(signedData + "a");
             }
@@ -113,7 +113,7 @@ namespace JwtManagerTests
 
             try
             {
-                string data = "{a:1,b:2}";
+                string data = "{\"a\":1,\"b\":2}";
                 string signedData = jwt.Sign(data);
             }
             catch (Exception ex)
@@ -143,7 +143,7 @@ namespace JwtManagerTests
 
             try
             {
-                string data = "{a:1,b:2}";
+                string data = "{\"a\":1,\"b\":2}";
                 string signedData = sJwt.Sign(data);
                 Assert.IsNull(e, "An exception should not be thrown here");
                 string validatedData = vJwt.Validate(signedData);
