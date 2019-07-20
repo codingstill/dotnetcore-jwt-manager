@@ -8,7 +8,7 @@ namespace JwtManager
 {
     public class HsJwt : Jwt
     {
-        public int KeySize { get; set; }
+        public Helpers.KeySize KeySize { get; set; }
         public string Secret { get; set; }
 
         public override string Sign(string payload)
@@ -78,11 +78,11 @@ namespace JwtManager
         {
             switch(KeySize)
             {
-                case 256:
+                case Helpers.KeySize.S256:
                     return new HMACSHA256(secret);
-                case 384:
+                case Helpers.KeySize.S384:
                     return new HMACSHA384(secret);
-                case 512:
+                case Helpers.KeySize.S512:
                     return new HMACSHA512(secret);
                 default:
                     throw new Exception("Non-valid key size.");

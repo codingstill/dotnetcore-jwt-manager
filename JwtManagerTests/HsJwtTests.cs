@@ -107,7 +107,7 @@ namespace JwtManagerTests
             Exception e = null;
             JwtManager.HsJwt jwt = new JwtManager.HsJwt
             {
-                KeySize = 555,
+                KeySize = (JwtManager.Helpers.KeySize)555,
                 Secret = Secret
             };
 
@@ -135,9 +135,10 @@ namespace JwtManagerTests
                 KeySize = HashKeySize(),
                 Secret = Secret
             };
+
             JwtManager.HsJwt vJwt = new JwtManager.HsJwt
             {
-                KeySize = 555,
+                KeySize = (JwtManager.Helpers.KeySize)555,
                 Secret = Secret
             };
 
@@ -188,7 +189,7 @@ namespace JwtManagerTests
             Assert.AreEqual(e.Message, "Invalid signature.");
         }
 
-        protected abstract int HashKeySize();
+        protected abstract JwtManager.Helpers.KeySize HashKeySize();
     }
 
     [TestClass]
@@ -220,9 +221,9 @@ namespace JwtManagerTests
         }
         #endregion
 
-        protected override int HashKeySize()
+        protected override JwtManager.Helpers.KeySize HashKeySize()
         {
-            return 256;
+            return JwtManager.Helpers.KeySize.S256;
         }
     }
 
@@ -255,9 +256,9 @@ namespace JwtManagerTests
         }
         #endregion
 
-        protected override int HashKeySize()
+        protected override JwtManager.Helpers.KeySize HashKeySize()
         {
-            return 256;
+            return JwtManager.Helpers.KeySize.S384;
         }
     }
 
@@ -290,9 +291,9 @@ namespace JwtManagerTests
         }
         #endregion
 
-        protected override int HashKeySize()
+        protected override JwtManager.Helpers.KeySize HashKeySize()
         {
-            return 256;
+            return JwtManager.Helpers.KeySize.S512;
         }
     }
 
