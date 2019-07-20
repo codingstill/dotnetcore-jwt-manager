@@ -48,7 +48,7 @@ In case of an error, an Exception will be thrown.
 
 ## HMAC Algorithm
 
-For this you need a secret in store it in a string variable. Use a longer secret for better security
+For this you need a secret in a string variable. Longer secret is better
 
 ### Sign a JWT token
 ```cs
