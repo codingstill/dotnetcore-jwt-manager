@@ -89,4 +89,4 @@ In case of an error, an Exception will be thrown.
 
 The code has been tested both as a .NET and .NET Core library.
 
-Check the JwtManagerTests project on more examples on how to use
+Check the **JwtManagerTests** project for more examples on how to use
