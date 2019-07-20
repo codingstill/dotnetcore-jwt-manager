@@ -82,7 +82,7 @@ namespace JwtManager
             byte[] tmp = Helpers.Base64Helper.UrlDecode(signature);
             if (!rsaDeformatter.VerifySignature(hash, tmp))
             {
-                throw new Exception("Invalid signature");
+                throw new Exception("Invalid signature.");
             }
 
             return payloadJson;
