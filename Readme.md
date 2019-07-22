@@ -20,7 +20,7 @@ using Newtonsoft.Json;
 
 JwtManager.RsJwt jwt = new JwtManager.RsJwt
 {
-    KeySize = JwtManager.Helpers.KeySize.S256, // This can be also 384 or 512
+    KeySize = JwtManager.Helpers.KeySize.S256, // This can be also S384 or S512
     PrivateKey = PrivateKey
 };
 
@@ -58,7 +58,7 @@ string secret = "setyourverysecretkeyhere";
 
 JwtManager.HsJwt jwt = new JwtManager.HsJwt
 {
-    KeySize = JwtManager.Helpers.KeySize.S256, // This can be also 384 or 512
+    KeySize = JwtManager.Helpers.KeySize.S256, // This can be also S384 or S512
     Secret = secret
 };
 
