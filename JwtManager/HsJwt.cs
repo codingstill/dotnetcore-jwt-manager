@@ -70,7 +70,7 @@ namespace JwtManager
         {
             get
             {
-                return new JwtHeader { alg = "HS" + KeySize.ToString(), typ = "JWT" };
+                return new JwtHeader { alg = "HS" + ((int)KeySize).ToString(), typ = "JWT" };
             }
         }
 
