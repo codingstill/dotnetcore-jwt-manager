@@ -244,7 +244,7 @@ namespace JwtManagerTests
             Exception e = null;
             JwtManager.RsJwt jwt = new JwtManager.RsJwt
             {
-                KeySize = (JwtManager.Helpers.KeySize)555,
+                KeySize = (JwtManager.Enums.KeySize)555,
                 PrivateKey = PrivateKey
             };
 
@@ -273,7 +273,7 @@ namespace JwtManagerTests
             };
             JwtManager.RsJwt vJwt = new JwtManager.RsJwt
             {
-                KeySize = (JwtManager.Helpers.KeySize)555,
+                KeySize = (JwtManager.Enums.KeySize)555,
                 PublicKey = PublicKey
             };
 
@@ -293,7 +293,7 @@ namespace JwtManagerTests
             Assert.AreEqual(e.Message, "Given key size is not valid.");
         }
 
-        protected abstract JwtManager.Helpers.KeySize HashKeySize();
+        protected abstract JwtManager.Enums.KeySize HashKeySize();
     }
 
     [TestClass]
@@ -325,9 +325,9 @@ namespace JwtManagerTests
         }
         #endregion
 
-        protected override JwtManager.Helpers.KeySize HashKeySize()
+        protected override JwtManager.Enums.KeySize HashKeySize()
         {
-            return JwtManager.Helpers.KeySize.S256;
+            return JwtManager.Enums.KeySize.S256;
         }
     }
 
@@ -360,9 +360,9 @@ namespace JwtManagerTests
         }
         #endregion
 
-        protected override JwtManager.Helpers.KeySize HashKeySize()
+        protected override JwtManager.Enums.KeySize HashKeySize()
         {
-            return JwtManager.Helpers.KeySize.S384;
+            return JwtManager.Enums.KeySize.S384;
         }
     }
 
@@ -395,9 +395,9 @@ namespace JwtManagerTests
         }
         #endregion
 
-        protected override JwtManager.Helpers.KeySize HashKeySize()
+        protected override JwtManager.Enums.KeySize HashKeySize()
         {
-            return JwtManager.Helpers.KeySize.S512;
+            return JwtManager.Enums.KeySize.S512;
         }
     }
 }

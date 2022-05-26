@@ -107,7 +107,7 @@ namespace JwtManagerTests
             Exception e = null;
             JwtManager.HsJwt jwt = new JwtManager.HsJwt
             {
-                KeySize = (JwtManager.Helpers.KeySize)555,
+                KeySize = (JwtManager.Enums.KeySize)555,
                 Secret = Secret
             };
 
@@ -138,7 +138,7 @@ namespace JwtManagerTests
 
             JwtManager.HsJwt vJwt = new JwtManager.HsJwt
             {
-                KeySize = (JwtManager.Helpers.KeySize)555,
+                KeySize = (JwtManager.Enums.KeySize)555,
                 Secret = Secret
             };
 
@@ -189,7 +189,7 @@ namespace JwtManagerTests
             Assert.AreEqual(e.Message, "Invalid signature.");
         }
 
-        protected abstract JwtManager.Helpers.KeySize HashKeySize();
+        protected abstract JwtManager.Enums.KeySize HashKeySize();
     }
 
     [TestClass]
@@ -221,9 +221,9 @@ namespace JwtManagerTests
         }
         #endregion
 
-        protected override JwtManager.Helpers.KeySize HashKeySize()
+        protected override JwtManager.Enums.KeySize HashKeySize()
         {
-            return JwtManager.Helpers.KeySize.S256;
+            return JwtManager.Enums.KeySize.S256;
         }
     }
 
@@ -256,9 +256,9 @@ namespace JwtManagerTests
         }
         #endregion
 
-        protected override JwtManager.Helpers.KeySize HashKeySize()
+        protected override JwtManager.Enums.KeySize HashKeySize()
         {
-            return JwtManager.Helpers.KeySize.S384;
+            return JwtManager.Enums.KeySize.S384;
         }
     }
 
@@ -291,9 +291,9 @@ namespace JwtManagerTests
         }
         #endregion
 
-        protected override JwtManager.Helpers.KeySize HashKeySize()
+        protected override JwtManager.Enums.KeySize HashKeySize()
         {
-            return JwtManager.Helpers.KeySize.S512;
+            return JwtManager.Enums.KeySize.S512;
         }
     }
 

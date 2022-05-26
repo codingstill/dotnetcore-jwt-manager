@@ -9,9 +9,9 @@ namespace JwtManager
         public string alg { get; set; }
         public string typ { get; set; }
 
-        public void Set(Helpers.Algorithm algorithm, Helpers.KeySize size)
+        public void Set(Enums.Algorithm algorithm, Enums.KeySize size)
         {
-            if(!Enum.IsDefined(typeof(Helpers.Algorithm), algorithm) || !Enum.IsDefined(typeof(Helpers.KeySize), size))
+            if(!Enum.IsDefined(typeof(Enums.Algorithm), algorithm) || !Enum.IsDefined(typeof(Enums.KeySize), size))
             {
                 throw new Exception("Invalid values for algorithm or size.");
             }
@@ -20,17 +20,17 @@ namespace JwtManager
 
             switch(algorithm)
             {
-                case Helpers.Algorithm.RSA:
+                case Enums.Algorithm.RSA:
                     algstr = "RS";
                     break;
-                case Helpers.Algorithm.HMAC:
+                case Enums.Algorithm.HMAC:
                     algstr = "HS";
                     break;
-                case Helpers.Algorithm.ECDSA:
+                case Enums.Algorithm.ECDSA:
                     algstr = "ES";
                     break;
-                case Helpers.Algorithm.RSASSA:
-                    if(size == Helpers.KeySize.S512)
+                case Enums.Algorithm.RSASSA:
+                    if(size == Enums.KeySize.S512)
                     {
                         throw new Exception("Invalid size for algorithm.");
                     }

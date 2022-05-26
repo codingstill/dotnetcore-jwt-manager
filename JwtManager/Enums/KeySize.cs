@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace JwtManager.Helpers
+namespace JwtManager.Enums
 {
     public enum KeySize
     {

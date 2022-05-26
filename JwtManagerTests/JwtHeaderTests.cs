@@ -10,8 +10,8 @@ namespace JwtManagerTests
     {
         class TestResult
         {
-            public JwtManager.Helpers.Algorithm algorithm { get; set; }
-            public JwtManager.Helpers.KeySize size { get; set; }
+            public JwtManager.Enums.Algorithm algorithm { get; set; }
+            public JwtManager.Enums.KeySize size { get; set; }
             public string alg { get; set; }
             public string typ { get; set; }
         }
@@ -22,12 +22,12 @@ namespace JwtManagerTests
             JwtManager.JwtHeader header = new JwtManager.JwtHeader();
 
             TestResult[] tests = {
-                new TestResult { algorithm = JwtManager.Helpers.Algorithm.RSA, size = JwtManager.Helpers.KeySize.S256, alg = "RS256", typ = "JWT" },
-                new TestResult { algorithm = JwtManager.Helpers.Algorithm.RSA, size = JwtManager.Helpers.KeySize.S384, alg = "RS384", typ = "JWT" },
-                new TestResult { algorithm = JwtManager.Helpers.Algorithm.RSA, size = JwtManager.Helpers.KeySize.S512, alg = "RS512", typ = "JWT" },
-                new TestResult { algorithm = JwtManager.Helpers.Algorithm.HMAC, size = JwtManager.Helpers.KeySize.S256, alg = "HS256", typ = "JWT" },
-                new TestResult { algorithm = JwtManager.Helpers.Algorithm.HMAC, size = JwtManager.Helpers.KeySize.S384, alg = "HS384", typ = "JWT" },
-                new TestResult { algorithm = JwtManager.Helpers.Algorithm.HMAC, size = JwtManager.Helpers.KeySize.S512, alg = "HS512", typ = "JWT" }
+                new TestResult { algorithm = JwtManager.Enums.Algorithm.RSA, size = JwtManager.Enums.KeySize.S256, alg = "RS256", typ = "JWT" },
+                new TestResult { algorithm = JwtManager.Enums.Algorithm.RSA, size = JwtManager.Enums.KeySize.S384, alg = "RS384", typ = "JWT" },
+                new TestResult { algorithm = JwtManager.Enums.Algorithm.RSA, size = JwtManager.Enums.KeySize.S512, alg = "RS512", typ = "JWT" },
+                new TestResult { algorithm = JwtManager.Enums.Algorithm.HMAC, size = JwtManager.Enums.KeySize.S256, alg = "HS256", typ = "JWT" },
+                new TestResult { algorithm = JwtManager.Enums.Algorithm.HMAC, size = JwtManager.Enums.KeySize.S384, alg = "HS384", typ = "JWT" },
+                new TestResult { algorithm = JwtManager.Enums.Algorithm.HMAC, size = JwtManager.Enums.KeySize.S512, alg = "HS512", typ = "JWT" }
             };
 
             foreach(TestResult test in tests)
@@ -46,7 +46,7 @@ namespace JwtManagerTests
 
             try
             {
-                header.Set(JwtManager.Helpers.Algorithm.RSASSA, JwtManager.Helpers.KeySize.S512);
+                header.Set(JwtManager.Enums.Algorithm.RSASSA, JwtManager.Enums.KeySize.S512);
             }
             catch(Exception ex)
             {
@@ -65,7 +65,7 @@ namespace JwtManagerTests
 
             try
             {
-                header.Set(JwtManager.Helpers.Algorithm.RSASSA, (JwtManager.Helpers.KeySize)555);
+                header.Set(JwtManager.Enums.Algorithm.RSASSA, (JwtManager.Enums.KeySize)555);
             }
             catch (Exception ex)
             {
