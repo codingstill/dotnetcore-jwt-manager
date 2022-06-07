@@ -9,7 +9,12 @@ To generate a compatible private key
 openssl genrsa -out private.key 4096
 ```
 
-To generate a compatible public key
+To genarate a compatible certificate from the private key
+```
+openssl req -new -x509 -key private.key -out cert.pem -days 360
+```
+
+To generate a compatible public key from the private key
 ```
 openssl rsa -in private.key -outform PEM -pubout -out public.pem
 ```
@@ -37,6 +42,20 @@ JwtManager.RsJwt jwt = new JwtManager.RsJwt
 {
     KeySize = JwtManager.Helpers.KeySize.S256, // This can be also S384 or S512
     PublicKey = PublicKey
+};
+
+string payload = jwt.Validate(strToken);
+var myToken = JsonConvert.DeserializeObject<JwtToken>(payload);
+```
+
+### Validate a JWT token with a certificate
+```cs
+using Newtonsoft.Json;
+
+JwtManager.RsJwt jwt = new JwtManager.RsJwt
+{
+    KeySize = JwtManager.Helpers.KeySize.S256, // This can be also S384 or S512
+    Certificate = Certificate
 };
 
 string payload = jwt.Validate(strToken);
