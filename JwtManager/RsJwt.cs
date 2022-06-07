@@ -15,6 +15,7 @@ namespace JwtManager
     {
         public string PrivateKey { get; set; }
         public string PublicKey { get; set; }
+        public string Certificate { get; set; }
         public Enums.KeySize KeySize { get; set; }
 
         public override string Sign(string payload)
@@ -63,7 +64,7 @@ namespace JwtManager
             string headerJson = Encoding.UTF8.GetString(Helpers.Base64Helper.UrlDecode(header));
             string payloadJson = Encoding.UTF8.GetString(Helpers.Base64Helper.UrlDecode(payload));
 
-            byte[] keyBytes = Convert.FromBase64String(PublicKey);
+            byte[] keyBytes = GetPublicKeyBytes();
 
             AsymmetricKeyParameter asymmetricKeyParameter = PublicKeyFactory.CreateKey(keyBytes);
             RsaKeyParameters rsaKeyParameters = (RsaKeyParameters)asymmetricKeyParameter;
@@ -86,6 +87,20 @@ namespace JwtManager
             }
 
             return payloadJson;
+        }
+
+        private byte[] GetPublicKeyBytes()
+        {
+            if (!string.IsNullOrEmpty(PublicKey))
+            {
+                return Convert.FromBase64String(PublicKey);
+            }
+            if (!string.IsNullOrEmpty(Certificate))
+            {
+                return Helpers.CertificateHelper.GetPublicKey(Certificate);
+            }
+
+            throw new Exception("Cannot get public key");
         }
 
         private JwtHeader Header

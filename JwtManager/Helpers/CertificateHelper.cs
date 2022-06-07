@@ -27,7 +27,7 @@ namespace JwtManager.Helpers
             return tmp.Trim();
         }
 
-        public static string GetPublicKey(string certificate)
+        public static byte[] GetPublicKey(string certificate)
         {
             byte[] certificateKeyBytes = Convert.FromBase64String(certificate);
             X509Certificate2 cert = new X509Certificate2(certificateKeyBytes);
@@ -37,8 +37,8 @@ namespace JwtManager.Helpers
             {
                 throw new Exception("Could not retrieve public key from certificate");
             }
-
-            return Encoding.Default.GetString(publicKey.ExportSubjectPublicKeyInfo());
+            
+            return publicKey.ExportSubjectPublicKeyInfo();
         }
     }
 }

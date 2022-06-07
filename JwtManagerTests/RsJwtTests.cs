@@ -13,6 +13,7 @@ namespace JwtManagerTests
         #region Private Members
         private static string PrivateKey = string.Empty;
         private static string PublicKey = string.Empty;
+        private static string Certificate = string.Empty;
 
         private static string KeySize = string.Empty;
         private static string OpenSslBinPath = string.Empty;
@@ -30,8 +31,9 @@ namespace JwtManagerTests
             OpenSslBinPath = AppSettings.Settings["OpenSslBinPath"].Value;
 
             CurrentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string commands = string.Format(@"{0}openssl genrsa -out private{1}.key {1}
-{0}openssl rsa -in private{1}.key -outform PEM -pubout -out public{1}.pem", OpenSslBinPath, KeySize);
+            string commands = string.Format(@"""{0}openssl"" genrsa -out private{1}.key {1}
+""{0}openssl"" rsa -in private{1}.key -outform PEM -pubout -out public{1}.pem
+""{0}openssl"" req -new -x509 -key private{1}.key -out cert{1}.pem -days 1 -subj /C=GR", OpenSslBinPath, KeySize);
 
             File.WriteAllText(string.Format("{0}\\create.bat", CurrentPath), commands);
 
@@ -51,6 +53,7 @@ namespace JwtManagerTests
 
             PrivateKey = JwtManager.Helpers.KeyHelper.LoadFromFile(string.Format("{0}\\private{1}.key", CurrentPath, KeySize));
             PublicKey = JwtManager.Helpers.KeyHelper.LoadFromFile(string.Format("{0}\\public{1}.pem", CurrentPath, KeySize));
+            Certificate = JwtManager.Helpers.CertificateHelper.LoadFromFile(string.Format("{0}\\cert{1}.pem", CurrentPath, KeySize));
         }
 
         [TestInitialize]
@@ -64,6 +67,7 @@ namespace JwtManagerTests
         {
             File.Delete(string.Format("{0}\\private{1}.key", CurrentPath, KeySize));
             File.Delete(string.Format("{0}\\public{1}.pem", CurrentPath, KeySize));
+            File.Delete(string.Format("{0}\\cert{1}.pem", CurrentPath, KeySize));
             File.Delete(string.Format("{0}\\create.bat", CurrentPath));
         }
         #endregion
@@ -106,6 +110,27 @@ namespace JwtManagerTests
             {
                 KeySize = HashKeySize(),
                 PublicKey = PublicKey
+            };
+            string validatedData = jwt.Validate(signedData);
+
+            Assert.AreEqual(data, validatedData, "Signed data should match the original data");
+        }
+
+        [TestMethod]
+        public void ValidateDataWithCertificate()
+        {
+            string data = "{a:1,b:2}";
+            JwtManager.RsJwt signJwt = new JwtManager.RsJwt
+            {
+                KeySize = HashKeySize(),
+                PrivateKey = PrivateKey
+            };
+            string signedData = signJwt.Sign(data);
+
+            JwtManager.RsJwt jwt = new JwtManager.RsJwt
+            {
+                KeySize = HashKeySize(),
+                Certificate = Certificate
             };
             string validatedData = jwt.Validate(signedData);
 
