@@ -59,8 +59,6 @@ namespace JwtManager
             string payload = parts[1];
             string signature = parts[2];
 
-            byte[] crypto = Helpers.Base64Helper.UrlDecode(parts[2]);
-
             string headerJson = Encoding.UTF8.GetString(Helpers.Base64Helper.UrlDecode(header));
             string payloadJson = Encoding.UTF8.GetString(Helpers.Base64Helper.UrlDecode(payload));
 
@@ -80,8 +78,8 @@ namespace JwtManager
 
             RSAPKCS1SignatureDeformatter rsaDeformatter = new RSAPKCS1SignatureDeformatter(rsa);
             rsaDeformatter.SetHashAlgorithm(AlgorithmName);
-            byte[] tmp = Helpers.Base64Helper.UrlDecode(signature);
-            if (!rsaDeformatter.VerifySignature(hash, tmp))
+            byte[] crypto = Helpers.Base64Helper.UrlDecode(signature);
+            if (!rsaDeformatter.VerifySignature(hash, crypto))
             {
                 throw new Exception("Invalid signature.");
             }
